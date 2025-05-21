@@ -70,8 +70,9 @@
         .silos.partial {
             background-color: #fff3cd;
         }
-        .silos.partial.bio {
-            background-color: #f8d7da !important; /* Colore rosso per i silos bio */
+        /* Colore specifico per silos biologici */
+        .silos.bio {
+            background-color: #f8d7da !important; /* Rosso per silos biologici */
         }
         .silos.full {
             background-color: #f8d7da;
@@ -119,9 +120,20 @@
             margin-top: 3px;
             background-color: #e9ecef;
         }
+        /* Testo rosso per righe bio */
         .bio-text {
-            color: #dc3545 !important; /* Testo rosso per le righe bio */
-            font-weight: bold; /* Rendere il testo più evidente */
+            color: #dc3545 !important;
+            font-weight: bold !important;
+        }
+        /* Rimuovere spazio eccessivo nella pagina report */
+        #report .row.mb-4 {
+            margin-bottom: 1rem !important;
+        }
+        #report .card {
+            margin-bottom: 0;
+        }
+        #report h4.mb-3 {
+            margin-bottom: 1rem !important;
         }
     </style>
 </head>
@@ -548,11 +560,10 @@
                             </div>
                         </div>
                         
-                        <div class="row mt-3">
-                            <div class="col-12">
-                                <button type="button" class="btn btn-outline-success" id="btn-add-lotto">
-                                    <i class="
-                                        <button type="button" class="btn btn-outline-success" id="btn-add-lotto">
+                        <div class="row mt-
+                            <div class="row mt-3">
+                           <div class="col-12">
+                               <button type="button" class="btn btn-outline-success" id="btn-add-lotto">
                                    <i class="bi bi-plus-circle"></i> Aggiungi Lotto
                                </button>
                            </div>
@@ -638,7 +649,7 @@
            <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
                <h4 class="mb-3">Report Giacenze</h4>
                
-               <div class="row mb-4">
+               <div class="row mb-3">
                    <div class="col-md-3">
                        <div class="card">
                            <div class="card-body">
@@ -1184,6 +1195,9 @@
                    if (lineaTrasformazione === "ALTRE") {
                        let altraLinea = $("#altra-linea-lotti").val();
                        if (!altraLinea) {
+                           alert("
+                                let altraLinea = $("#altra-linea-lotti").val();
+                       if (!altraLinea) {
                            alert("Specificare il nome dell'altra linea di trasformazione");
                            return;
                        }
@@ -1288,15 +1302,18 @@
            
            // Aggiornamento visuale silos
            function updateSilosVisual(silosId) {
-               // Aggiorna tutti gli elementi silos con lo stesso ID
-               $(`.silos[data-silos="${silosId}"]`).each(function() {
+               // Seleziona tutti gli elementi silos con lo stesso ID
+               let silosElements = $(`.silos[data-silos="${silosId}"]`);
+               let data = silosData[silosId];
+               
+               silosElements.each(function() {
                    let silosElement = $(this);
                    let silosContentElement = silosElement.find(".silos-content");
                    let silosCapacityElement = silosElement.find(".silos-capacity");
                    
+                   // Rimuovi tutte le classi di stato
                    silosElement.removeClass("empty partial full bio");
                    
-                   let data = silosData[silosId];
                    let percentuale = (data.quantita / 7000) * 100;
                    
                    silosContentElement.html(`
@@ -1312,7 +1329,7 @@
                    } else if (percentuale > 0) {
                        silosElement.addClass("partial");
                        
-                       // Aggiunge classe bio se la tipologia è BIO
+                       // Se è BIO aggiungi la classe per colorazione rossa
                        if (data.isBio) {
                            silosElement.addClass("bio");
                        }
@@ -1327,12 +1344,13 @@
                        silosElement.find(".silos-badge").text(data.stato === "In attesa" ? "A" : "L");
                    }
                });
+               
+               console.log(`Silos ${silosId} updated, bio status: ${silosData[silosId].isBio}`);
            }
            
            // Aggiornamento tabella stato silos
            function updateSilosTable() {
                console.log("Aggiornamento tabella silos");
-               console.log(silosData); // Debug
                
                let tableBody = $("#silos-table tbody");
                tableBody.empty();
@@ -1727,4 +1745,4 @@
        });
    </script>
 </body>
-</html>
+</html> 
