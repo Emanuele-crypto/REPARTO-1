@@ -16,7 +16,7 @@
             background-color: #f8f9fa;
         }
         .header {
-            background-color: #28a745;
+            background-color: #8B4513; /* Colore marroncino */
             color: white;
             padding: 20px;
             text-align: center;
@@ -26,8 +26,7 @@
         .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: a
-            20px;
+            padding: 20px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -70,6 +69,9 @@
         }
         .silos.partial {
             background-color: #fff3cd;
+        }
+        .silos.partial.bio {
+            background-color: #f8d7da; /* Colore rosso per i silos bio */
         }
         .silos.full {
             background-color: #f8d7da;
@@ -117,12 +119,15 @@
             margin-top: 3px;
             background-color: #e9ecef;
         }
+        .bio-text {
+            color: #dc3545 !important; /* Testo rosso per le righe bio */
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Sistema Gestione Trasformazione Agrumi</h1>
-        <h3>Reparto 1: Ricezione Frutta</h3>
+        <h1>SIMONE GATTO PROD REPARTO 1</h1>
+        <h3>RICEZIONE E SCARICO FRUTTA</h3>
     </div>
 
     <div class="dashboard-container">
@@ -212,6 +217,26 @@
                                     <option value="singolo">Scarico Completo</option>
                                     <option value="multiplo">Scarico a Lotti</option>
                                 </select>
+                            </div>
+                            
+                            <!-- SPOSTATO QUI: Linee di Trasformazione -->
+                            <div class="col-md-6">
+                                <label for="linea-trasformazione" class="form-label">Linea di Trasformazione</label>
+                                <select class="form-select" id="linea-trasformazione" required>
+                                    <option value="">Seleziona linea di trasformazione</option>
+                                    <option value="BOE/1100">BOE/1100</option>
+                                    <option value="B/SF">B/SF</option>
+                                    <option value="GOE INT/400">GOE INT/400</option>
+                                    <option value="400">400</option>
+                                    <option value="GOE EST/400">GOE EST/400</option>
+                                    <option value="GOE EST/POLY">GOE EST/POLY</option>
+                                    <option value="GOE INT/POLY">GOE INT/POLY</option>
+                                    <option value="ALTRE">ALTRE</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6" id="altra-linea-container" style="display: none;">
+                                <label for="altra-linea" class="form-label">Specifica altra linea</label>
+                                <input type="text" class="form-control" id="altra-linea" placeholder="Specifica il nome della linea">
                             </div>
                         </div>
                     </div>
@@ -349,28 +374,6 @@
                             <div class="col-md-12">
                                 <label class="form-label">Silos selezionati</label>
                                 <input type="text" class="form-control" id="silos-selezionati" readonly>
-                            </div>
-                        </div>
-                        
-                        <!-- NUOVA SEZIONE: Linee di Trasformazione -->
-                        <div class="row mt-4">
-                            <div class="col-12">
-                                <h5>Linee di Trasformazione</h5>
-                                <p>Seleziona la linea di trasformazione per questo carico</p>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="linea-trasformazione" class="form-label">Linea di Trasformazione</label>
-                                <select class="form-select" id="linea-trasformazione" required>
-                                    <option value="">Seleziona linea di trasformazione</option>
-                                    <option value="BOE/1100">BOE/1100</option>
-                                    <option value="B/SF">B/SF</option>
-                                    <option value="GOE INT/400">GOE INT/400</option>
-                                    <option value="ALTRE">ALTRE</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6" id="altra-linea-container" style="display: none;">
-                                <label for="altra-linea" class="form-label">Specifica altra linea</label>
-                                <input type="text" class="form-control" id="altra-linea" placeholder="Specifica il nome della linea">
                             </div>
                         </div>
                     </div>
@@ -555,6 +558,8 @@
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <label class="form-label">Peso totale assegnato</label>
+                                <input type="text" class="form-control" id="
+                                    <label class="form-label">Peso totale assegnato</label>
                                 <input type="text" class="form-control" id="peso-assegnato" readonly value="0 kg">
                             </div>
                             <div class="col-md-6">
@@ -563,7 +568,7 @@
                             </div>
                         </div>
                         
-                        <!-- NUOVA SEZIONE: Linee di Trasformazione per lotti -->
+                        <!-- Linee di Trasformazione per lotti -->
                         <div class="row mt-4">
                             <div class="col-12">
                                 <h5>Linee di Trasformazione</h5>
@@ -576,6 +581,10 @@
                                     <option value="BOE/1100">BOE/1100</option>
                                     <option value="B/SF">B/SF</option>
                                     <option value="GOE INT/400">GOE INT/400</option>
+                                    <option value="400">400</option>
+                                    <option value="GOE EST/400">GOE EST/400</option>
+                                    <option value="GOE EST/POLY">GOE EST/POLY</option>
+                                    <option value="GOE INT/POLY">GOE INT/POLY</option>
                                     <option value="ALTRE">ALTRE</option>
                                 </select>
                             </div>
@@ -772,7 +781,7 @@
         let silosData = {};
         
         $(document).ready(function() {
-            // CORREZIONE: Gestione selezione silos con delegazione eventi
+            // Gestione selezione silos con delegazione eventi
             $(document).on("click", ".silos", function() {
                 console.log("Silos clicked:", $(this).data("silos")); // Log per debug
                 
@@ -1008,7 +1017,12 @@
                 }
             }
             
-            // NUOVA LOGICA: Ripartizione del carico nei silos a pieno carico
+            // Funzione per verificare se la tipologia è BIO
+            function isBioTipologia(tipologia) {
+                return tipologia === "Bio EU" || tipologia === "Bio NTD" || tipologia === "Bio DEM";
+            }
+            
+            // Ripartizione del carico nei silos a pieno carico
             function distribuireCarico(silosArray, pesoTotale) {
                 let pesoRimanente = pesoTotale;
                 let distribuzionePerSilos = {};
@@ -1042,7 +1056,7 @@
                 return distribuzionePerSilos;
             }
             
-            // CORREZIONE: Registrazione carico con nuova logica di distribuzione
+            // Registrazione carico con nuova logica di distribuzione
             $("#btn-registra").click(function() {
                 // Validazione base
                 let fornitore = $("#fornitore").val();
@@ -1092,7 +1106,7 @@
                         return;
                     }
                     
-                    // NUOVA LOGICA: Distribuzione del carico
+                    // Distribuzione del carico
                     let distribuzioneCarico = distribuireCarico(silosArray, pesoNetto);
                     
                     // Verifica se abbiamo abbastanza silos per tutto il carico
@@ -1106,6 +1120,9 @@
                             return;
                         }
                     }
+                    
+                    // Flag per verificare se la tipologia è BIO
+                    let isBio = isBioTipologia(tipologia);
                     
                     // Assegnazione peso ai silos
                     for (let silosId in distribuzioneCarico) {
@@ -1127,13 +1144,16 @@
                                 inizioLavorazione: null,
                                 fineLavorazione: null,
                                 portata: 0,
-                                lineaTrasformazione: lineaTrasformazione
+                                lineaTrasformazione: lineaTrasformazione,
+                                isBio: isBio // Flag per BIO
                             };
                         } else {
                             // Aggiorniamo i dati esistenti (aggiungiamo peso)
                             silosData[silosId].quantita += pesoAssegnato;
                             silosData[silosId].fornitore = fornitore;
                             silosData[silosId].targa = targa;
+                            silosData[silosId].tipologia = tipologia;
+                            silosData[silosId].isBio = isBio;
                             silosData[silosId].lineaTrasformazione = lineaTrasformazione;
                         }
                         
@@ -1172,6 +1192,8 @@
                     // Valida ogni lotto
                     $(".lotto-item").each(function(index) {
                         let pesoLotto = parseFloat($(this).find(".lotto-peso").val());
+                        let lineaLotto = $(this).fin
+                        let pesoLotto = parseFloat($(this).find(".lotto-peso").val());
                         let lineaLotto = $(this).find(".lotto-linea").val();
                         let silosLotto = $(this).find(".lotto-silos-selected").val();
                         
@@ -1188,7 +1210,7 @@
                         }
                         
                         if (!silosLotto) {
-                           alert(`Selezionare almeno un silos per il Lotto ${index + 1}`);
+                            alert(`Selezionare almeno un silos per il Lotto ${index + 1}`);
                             lottiValidi = false;
                             return false; // break
                         }
@@ -1210,6 +1232,9 @@
                             return;
                         }
                     }
+                    
+                    // Flag per verificare se la tipologia è BIO
+                    let isBio = isBioTipologia(tipologia);
                     
                     // Registrazione dei lotti con nuova logica di distribuzione
                     lottiData.forEach((lotto, index) => {
@@ -1236,13 +1261,16 @@
                                     inizioLavorazione: null,
                                     fineLavorazione: null,
                                     portata: 0,
-                                    lineaTrasformazione: lineaTrasformazione
+                                    lineaTrasformazione: lineaTrasformazione,
+                                    isBio: isBio // Flag per BIO
                                 };
                             } else {
                                 // Aggiorniamo i dati esistenti (aggiungiamo peso)
                                 silosData[silosId].quantita += pesoAssegnato;
                                 silosData[silosId].fornitore = fornitore;
                                 silosData[silosId].targa = targa;
+                                silosData[silosId].tipologia = tipologia;
+                                silosData[silosId].isBio = isBio;
                                 silosData[silosId].lineaTrasformazione = lineaTrasformazione;
                             }
                             
@@ -1262,13 +1290,13 @@
                 resetForm();
             });
             
-            // CORREZIONE: Aggiornamento visuale silos
+            // Aggiornamento visuale silos
             function updateSilosVisual(silosId) {
                 let silosElement = $(`.silos[data-silos="${silosId}"]`);
                 let silosContentElement = silosElement.find(".silos-content");
                 let silosCapacityElement = silosElement.find(".silos-capacity");
                 
-                silosElement.removeClass("empty partial full");
+                silosElement.removeClass("empty partial full bio");
                 
                 let data = silosData[silosId];
                 let percentuale = (data.quantita / 7000) * 100;
@@ -1285,6 +1313,11 @@
                     silosElement.addClass("full");
                 } else if (percentuale > 0) {
                     silosElement.addClass("partial");
+                    
+                    // Aggiunge classe bio se la tipologia è BIO
+                    if (data.isBio) {
+                        silosElement.addClass("bio");
+                    }
                 } else {
                     silosElement.addClass("empty");
                 }
@@ -1297,7 +1330,7 @@
                 }
             }
             
-            // CORREZIONE: Aggiornamento tabella stato silos
+            // Aggiornamento tabella stato silos
             function updateSilosTable() {
                 console.log("Aggiornamento tabella silos");
                 console.log(silosData); // Debug
@@ -1307,8 +1340,12 @@
                 
                 for (let silosId in silosData) {
                     let data = silosData[silosId];
+                    
+                    // Determina se è bio per impostare la classe per il testo rosso
+                    let bioClass = data.isBio ? "bio-text" : "";
+                    
                     let row = `
-                        <tr>
+                        <tr class="${bioClass}">
                             <td>${silosId}</td>
                             <td>${data.stato}</td>
                             <td>${data.fornitore}</td>
@@ -1399,7 +1436,7 @@
                 let quantity = parseFloat($("#quantity-processed").val());
                 let flowRate = parseFloat($("#flow-rate").val());
                 
-              if (!startTime || isNaN(quantity)) {
+                if (!startTime || isNaN(quantity)) {
                     alert("Inserire almeno l'orario di inizio e la quantità");
                     return;
                 }
@@ -1431,7 +1468,7 @@
                     
                     // Aggiorna visualizzazione silos
                     $(".silos").each(function() {
-                        $(this).removeClass("empty partial full selected");
+                        $(this).removeClass("empty partial full bio selected");
                         $(this).addClass("empty");
                         $(this).find(".silos-content").empty();
                         $(this).find(".silos-badge").remove();
@@ -1501,7 +1538,7 @@
                 updateFruitTable(fruitData);
             }
             
-            // MODIFICA: Aggiornamento tabella fornitori con linee di stoccaggio
+            // Aggiornamento tabella fornitori con linee di stoccaggio
             function updateSupplierTable(data) {
                 let tableBody = $("#supplier-table tbody");
                 tableBody.empty();
@@ -1575,12 +1612,13 @@
                     inizioLavorazione: "2025-05-15T08:30",
                     fineLavorazione: null,
                     portata: 2125,
-                    lineaTrasformazione: "BOE/1100"
+                    lineaTrasformazione: "BOE/1100",
+                    isBio: false
                 };
                 
                 silosData["A2"] = {
                     fornitore: "Agrumi Sicilia S.r.l.",
-                    tipologia: "Convenzionale",
+                    tipologia: "Bio EU",
                     targa: "AA123BB",
                     tipoAgrume: "Arance rosse",
                     varieta: "Tarocco",
@@ -1589,7 +1627,8 @@
                     inizioLavorazione: null,
                     fineLavorazione: null,
                     portata: 0,
-                    lineaTrasformazione: "BOE/1100"
+                    lineaTrasformazione: "BOE/1100",
+                    isBio: true
                 };
                 
                 // Simulazione carico 2
@@ -1604,7 +1643,8 @@
                     inizioLavorazione: null,
                     fineLavorazione: null,
                     portata: 0,
-                    lineaTrasformazione: "B/SF"
+                    lineaTrasformazione: "B/SF",
+                    isBio: true
                 };
                 
                 // Simulazione carico 3
@@ -1619,7 +1659,8 @@
                     inizioLavorazione: "2025-05-14T14:00",
                     fineLavorazione: "2025-05-14T18:30",
                     portata: 1733,
-                    lineaTrasformazione: "GOE INT/400"
+                    lineaTrasformazione: "GOE INT/400",
+                    isBio: false
                 };
                 
                 // Aggiorna visualizzazione
