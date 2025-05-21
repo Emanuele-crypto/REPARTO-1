@@ -126,7 +126,7 @@
             font-weight: bold !important;
         }
         /* Rimuovere spazio eccessivo nella pagina report */
-        #report .row.mb-4 {
+        #report .row.mb-3 {
             margin-bottom: 1rem !important;
         }
         #report .card {
@@ -560,7 +560,7 @@
                             </div>
                         </div>
                         
-                        <div class="row mt-
+                        <div
                             <div class="row mt-3">
                            <div class="col-12">
                                <button type="button" class="btn btn-outline-success" id="btn-add-lotto">
@@ -795,8 +795,6 @@
        $(document).ready(function() {
            // Gestione selezione silos con delegazione eventi
            $(document).on("click", ".silos", function() {
-               console.log("Silos clicked:", $(this).data("silos")); // Log per debug
-               
                // Verifica se il silos è pieno
                let silosId = $(this).data("silos");
                let isFull = false;
@@ -1195,9 +1193,6 @@
                    if (lineaTrasformazione === "ALTRE") {
                        let altraLinea = $("#altra-linea-lotti").val();
                        if (!altraLinea) {
-                           alert("
-                                let altraLinea = $("#altra-linea-lotti").val();
-                       if (!altraLinea) {
                            alert("Specificare il nome dell'altra linea di trasformazione");
                            return;
                        }
@@ -1296,14 +1291,36 @@
                updateSilosTable();
                updateReportData();
                
-               // Reset form e selezioni
-               resetForm();
+               // Reset form e selezioni (ma non resettare i dati dei silos)
+               resetFormOnly();
            });
+
+           // Funzione per resettare solo il form senza cancellare i dati silos
+           function resetFormOnly() {
+               $("#reception-form")[0].reset();
+               $(".silos").removeClass("selected");
+               $("#silos-selezionati").val("");
+               $("#altra-linea-container").hide();
+               $("#altra-linea-container-lotti").hide();
+               $("#scarico-completo").show();
+               $("#scarico-lotti").hide();
+           }
            
            // Aggiornamento visuale silos
            function updateSilosVisual(silosId) {
                // Seleziona tutti gli elementi silos con lo stesso ID
                let silosElements = $(`.silos[data-silos="${silosId}"]`);
+               
+               if (!silosElements.length) {
+                   console.error(`Nessun elemento trovato per silosId: ${silosId}`);
+                   return;
+               }
+               
+               if (!silosData[silosId]) {
+                   console.error(`Nessun dato trovato per silosId: ${silosId}`);
+                   return;
+               }
+               
                let data = silosData[silosId];
                
                silosElements.each(function() {
@@ -1328,13 +1345,13 @@
                        silosElement.addClass("full");
                    } else if (percentuale > 0) {
                        silosElement.addClass("partial");
-                       
-                       // Se è BIO aggiungi la classe per colorazione rossa
-                       if (data.isBio) {
-                           silosElement.addClass("bio");
-                       }
                    } else {
                        silosElement.addClass("empty");
+                   }
+                   
+                   // Se è BIO aggiungi la classe separatamente
+                   if (data.isBio) {
+                       silosElement.addClass("bio");
                    }
                    
                    // Aggiungi badge per stato
@@ -1344,14 +1361,10 @@
                        silosElement.find(".silos-badge").text(data.stato === "In attesa" ? "A" : "L");
                    }
                });
-               
-               console.log(`Silos ${silosId} updated, bio status: ${silosData[silosId].isBio}`);
            }
            
            // Aggiornamento tabella stato silos
            function updateSilosTable() {
-               console.log("Aggiornamento tabella silos");
-               
                let tableBody = $("#silos-table tbody");
                tableBody.empty();
                
@@ -1476,10 +1489,11 @@
                alert("Dati lavorazione salvati con successo!");
            });
            
-           // Reset form
+           // Reset form e dati silos
            $("#btn-reset").click(function() {
                if (confirm("Attenzione: questa operazione cancellerà TUTTI i dati di carico nei silos. Continuare?")) {
-                   resetForm();
+                   resetFormOnly();
+                   
                    // Svuota tutti i dati dei silos
                    silosData = {};
                    
@@ -1499,16 +1513,6 @@
                    alert("Tutti i dati sono stati cancellati con successo!");
                }
            });
-           
-           function resetForm() {
-               $("#reception-form")[0].reset();
-               $(".silos").removeClass("selected");
-               $("#silos-selezionati").val("");
-               $("#altra-linea-container").hide();
-               $("#altra-linea-container-lotti").hide();
-               $("#scarico-completo").show();
-               $("#scarico-lotti").hide();
-           }
            
            // Aggiornamento dati report
            function updateReportData() {
@@ -1745,4 +1749,4 @@
        });
    </script>
 </body>
-</html> 
+</html>
