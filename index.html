@@ -135,6 +135,15 @@
         #report h4.mb-3 {
             margin-bottom: 1rem !important;
         }
+        /* Stile per il testo in filigrana */
+        .watermark {
+            font-size: 10px;
+            color: #aaa;
+            font-style: italic;
+            display: block;
+            text-align: center;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -555,13 +564,13 @@
                                     </div>
                                     <div class="col-md-12">
                                         <input type="text" class="form-control lotto-silos-selected" placeholder="Silos selezionati" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div
-                            <div class="row mt-3">
+                                        <input type="text" class="form-control lotto-silos-selected" placeholder="Silos selezionati" readonly>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       
+                       <div class="row mt-3">
                            <div class="col-12">
                                <button type="button" class="btn btn-outline-success" id="btn-add-lotto">
                                    <i class="bi bi-plus-circle"></i> Aggiungi Lotto
@@ -635,6 +644,7 @@
                                <th>Inizio Lavorazione</th>
                                <th>Fine Lavorazione</th>
                                <th>Portata (kg/h)</th>
+                               <th>Serbatoio Destinazione</th>
                                <th>Azioni</th>
                            </tr>
                        </thead>
@@ -669,8 +679,8 @@
                    <div class="col-md-3">
                        <div class="card">
                            <div class="card-body">
-                               <h5 class="card-title">In Lavorazione</h5>
-                               <h3 class="card-text" id="in-process">0 kg</h3>
+                               <h5 class="card-title">Lavorata</h5>
+                               <h3 class="card-text" id="processed">0 kg</h3>
                            </div>
                        </div>
                    </div>
@@ -757,6 +767,11 @@
                        <div class="mb-3">
                            <label for="flow-rate" class="form-label">Portata (kg/h)</label>
                            <input type="number" class="form-control" id="flow-rate" readonly>
+                       </div>
+                       <div class="mb-3">
+                           <label for="tank" class="form-label">Serbatoio Destinazione</label>
+                           <input type="text" class="form-control" id="tank" placeholder="Inserisci serbatoio di destinazione">
+                           <span class="watermark">Rileva il dato dal REP 2</span>
                        </div>
                    </form>
                </div>
@@ -1155,6 +1170,7 @@
                                fineLavorazione: null,
                                portata: 0,
                                lineaTrasformazione: lineaTrasformazione,
+                               serbatoioDestinazione: "",
                                isBio: isBio // Flag per BIO
                            };
                        } else {
@@ -1178,6 +1194,10 @@
                    $("#silos-selezionati").val("");
                } else {
                    // Scarico a lotti
+                   let lottiValidi = true;
+                   let pesoTotaleAssegnato = 0;
+                   let lottiData =
+                       // Scarico a lotti
                    let lottiValidi = true;
                    let pesoTotaleAssegnato = 0;
                    let lottiData = [];
@@ -1267,6 +1287,7 @@
                                    fineLavorazione: null,
                                    portata: 0,
                                    lineaTrasformazione: lineaTrasformazione,
+                                   serbatoioDestinazione: "",
                                    isBio: isBio // Flag per BIO
                                };
                            } else {
@@ -1387,6 +1408,7 @@
                            <td>${data.inizioLavorazione || "-"}</td>
                            <td>${data.fineLavorazione || "-"}</td>
                            <td>${data.portata > 0 ? Math.round(data.portata) + " kg/h" : "-"}</td>
+                           <td>${data.serbatoioDestinazione || '-'}<span class="watermark">Rileva il dato dal REP 2</span></td>
                            <td>
                                <button class="btn btn-sm btn-primary btn-process" data-silos="${silosId}">
                                    ${data.stato === "In attesa" ? "Avvia" : "Modifica"} Lavorazione
@@ -1434,6 +1456,9 @@
                    $("#flow-rate").val("");
                }
                
+               // Imposta il serbatoio di destinazione se esiste
+               $("#tank").val(data.serbatoioDestinazione || "");
+               
                // Mostra il modal
                new bootstrap.Modal(document.getElementById('silosModal')).show();
            }
@@ -1465,6 +1490,7 @@
                let endTime = $("#end-time").val();
                let quantity = parseFloat($("#quantity-processed").val());
                let flowRate = parseFloat($("#flow-rate").val());
+               let tank = $("#tank").val();
                
                if (!startTime || isNaN(quantity)) {
                    alert("Inserire almeno l'orario di inizio e la quantità");
@@ -1477,6 +1503,7 @@
                silosData[silosId].quantita = quantity;
                silosData[silosId].portata = flowRate || 0;
                silosData[silosId].stato = endTime ? "Completato" : "In lavorazione";
+               silosData[silosId].serbatoioDestinazione = tank;
                
                // Aggiorna visualizzazione
                updateSilosVisual(silosId);
@@ -1518,7 +1545,7 @@
            function updateReportData() {
                // Calcoli statistiche
                let totalStock = 0;
-               let inProcess = 0;
+               let processed = 0; // Frutta già lavorata (con fine lavorazione)
                let waiting = 0;
                let occupiedSilos = 0;
                let supplierData = {};
@@ -1529,8 +1556,9 @@
                    totalStock += data.quantita;
                    occupiedSilos++;
                    
-                   if (data.stato === "In lavorazione") {
-                       inProcess += data.quantita;
+                   if (data.fineLavorazione) {
+                       // Se ha una fine lavorazione, è stata completata
+                       processed += data.quantita;
                    } else if (data.stato === "In attesa") {
                        waiting += data.quantita;
                    }
@@ -1551,7 +1579,7 @@
                // Aggiornamento valori
                $("#total-stock").text(Math.round(totalStock) + " kg");
                $("#occupied-silos").text(occupiedSilos + "/21");
-               $("#in-process").text(Math.round(inProcess) + " kg");
+               $("#processed").text(Math.round(processed) + " kg"); // Modificato: ora mostra la frutta lavorata
                $("#waiting").text(Math.round(waiting) + " kg");
                
                // Aggiornamento tabelle
@@ -1634,6 +1662,7 @@
                    fineLavorazione: null,
                    portata: 2125,
                    lineaTrasformazione: "BOE/1100",
+                   serbatoioDestinazione: "",
                    isBio: false
                };
                
@@ -1649,6 +1678,7 @@
                    fineLavorazione: null,
                    portata: 0,
                    lineaTrasformazione: "BOE/1100",
+                   serbatoioDestinazione: "",
                    isBio: true
                };
                
@@ -1665,6 +1695,7 @@
                    fineLavorazione: null,
                    portata: 0,
                    lineaTrasformazione: "B/SF",
+                   serbatoioDestinazione: "",
                    isBio: true
                };
                
@@ -1681,6 +1712,7 @@
                    fineLavorazione: "2025-05-14T18:30",
                    portata: 1733,
                    lineaTrasformazione: "GOE INT/400",
+                   serbatoioDestinazione: "S12",
                    isBio: false
                };
                
