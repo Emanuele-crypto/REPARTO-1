@@ -135,15 +135,6 @@
         #report h4.mb-3 {
             margin-bottom: 1rem !important;
         }
-        /* Stile per il testo in filigrana */
-        .watermark {
-            font-size: 10px;
-            color: #aaa;
-            font-style: italic;
-            display: block;
-            text-align: center;
-            margin-top: 5px;
-        }
     </style>
 </head>
 <body>
@@ -259,6 +250,22 @@
                             <div class="col-md-6" id="altra-linea-container" style="display: none;">
                                 <label for="altra-linea" class="form-label">Specifica altra linea</label>
                                 <input type="text" class="form-control" id="altra-linea" placeholder="Specifica il nome della linea">
+                            </div>
+                            
+                            <!-- Nuovo campo per il serbatoio di destinazione -->
+                            <div class="col-md-6">
+                                <label for="serbatoio-destinazione" class="form-label">Serbatoio di Destinazione</label>
+                                <select class="form-select" id="serbatoio-destinazione">
+                                    <option value="">Seleziona serbatoio</option>
+                                    <option value="SRB-01">SRB-01</option>
+                                    <option value="SRB-02">SRB-02</option>
+                                    <option value="SRB-03">SRB-03</option>
+                                    <option value="SRB-04">SRB-04</option>
+                                    <option value="SRB-05">SRB-05</option>
+                                    <option value="SRB-06">SRB-06</option>
+                                    <option value="SRB-07">SRB-07</option>
+                                    <option value="SRB-08">SRB-08</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -554,17 +561,17 @@
                                             <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="1">1</button>
                                                 <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="2">2</button>
-                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="3">3</button>
-                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="4">4</button>
-                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="5">5</button>
-                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="6">6</button>
-                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="7">7</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <input type="text" class="form-control lotto-silos-selected" placeholder="Silos selezionati" readonly>
-                                        <input type="text" class="form-control lotto-silos-selected" placeholder="Silos selezionati" readonly>
+                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data
+                                                    <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="3">3</button>
+                                               <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="4">4</button>
+                                               <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="5">5</button>
+                                               <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="6">6</button>
+                                               <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="7">7</button>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-12">
+                                       <input type="text" class="form-control lotto-silos-selected" placeholder="Silos selezionati" readonly>
                                    </div>
                                </div>
                            </div>
@@ -613,6 +620,22 @@
                                <label for="altra-linea-lotti" class="form-label">Specifica altra linea</label>
                                <input type="text" class="form-control" id="altra-linea-lotti" placeholder="Specifica il nome della linea">
                            </div>
+                           
+                           <!-- Serbatoio di destinazione per lotti -->
+                           <div class="col-md-6 mt-3">
+                               <label for="serbatoio-destinazione-lotti" class="form-label">Serbatoio di Destinazione</label>
+                               <select class="form-select" id="serbatoio-destinazione-lotti">
+                                   <option value="">Seleziona serbatoio</option>
+                                   <option value="SRB-01">SRB-01</option>
+                                   <option value="SRB-02">SRB-02</option>
+                                   <option value="SRB-03">SRB-03</option>
+                                   <option value="SRB-04">SRB-04</option>
+                                   <option value="SRB-05">SRB-05</option>
+                                   <option value="SRB-06">SRB-06</option>
+                                   <option value="SRB-07">SRB-07</option>
+                                   <option value="SRB-08">SRB-08</option>
+                               </select>
+                           </div>
                        </div>
                    </div>
 
@@ -641,10 +664,10 @@
                                <th>Tipologia</th>
                                <th>Quantità (kg)</th>
                                <th>Linea Trasformazione</th>
+                               <th>Serbatoio Destinazione</th>
                                <th>Inizio Lavorazione</th>
                                <th>Fine Lavorazione</th>
                                <th>Portata (kg/h)</th>
-                               <th>Serbatoio Destinazione</th>
                                <th>Azioni</th>
                            </tr>
                        </thead>
@@ -767,11 +790,6 @@
                        <div class="mb-3">
                            <label for="flow-rate" class="form-label">Portata (kg/h)</label>
                            <input type="number" class="form-control" id="flow-rate" readonly>
-                       </div>
-                       <div class="mb-3">
-                           <label for="tank" class="form-label">Serbatoio Destinazione</label>
-                           <input type="text" class="form-control" id="tank" placeholder="Inserisci serbatoio di destinazione">
-                           <span class="watermark">Rileva il dato dal REP 2</span>
                        </div>
                    </form>
                </div>
@@ -1092,6 +1110,7 @@
                let tipoAgrume = $("#tipo-agrume").val();
                let varieta = $("#varieta").val();
                let modoScarico = $("#modo-scarico").val();
+               let serbatoioDestinazione = "";
                
                if (!fornitore || !tipologia || !targa || isNaN(pesoLordo) || isNaN(pesoNetto) || !tipoAgrume) {
                    alert("Compilare tutti i campi obbligatori");
@@ -1127,6 +1146,9 @@
                        lineaTrasformazione = altraLinea;
                    }
                    
+                   // Ottieni il serbatoio di destinazione
+                   serbatoioDestinazione = $("#serbatoio-destinazione").val();
+                   
                    // Ottieni i silos selezionati
                    let silosArray = silosSelezionati.split(", ");
                    if (silosArray.length === 0) {
@@ -1157,6 +1179,8 @@
                        if (pesoAssegnato <= 0) continue;
                        
                        // Se il silos non esiste già nei dati, lo creiamo
+                       if (!silos
+                           // Se il silos non esiste già nei dati, lo creiamo
                        if (!silosData[silosId]) {
                            silosData[silosId] = {
                                fornitore: fornitore,
@@ -1170,7 +1194,7 @@
                                fineLavorazione: null,
                                portata: 0,
                                lineaTrasformazione: lineaTrasformazione,
-                               serbatoioDestinazione: "",
+                               serbatoioDestinazione: serbatoioDestinazione,
                                isBio: isBio // Flag per BIO
                            };
                        } else {
@@ -1181,6 +1205,7 @@
                            silosData[silosId].tipologia = tipologia;
                            silosData[silosId].isBio = isBio;
                            silosData[silosId].lineaTrasformazione = lineaTrasformazione;
+                           silosData[silosId].serbatoioDestinazione = serbatoioDestinazione;
                        }
                        
                        // Aggiorna visualizzazione silos
@@ -1194,10 +1219,6 @@
                    $("#silos-selezionati").val("");
                } else {
                    // Scarico a lotti
-                   let lottiValidi = true;
-                   let pesoTotaleAssegnato = 0;
-                   let lottiData =
-                       // Scarico a lotti
                    let lottiValidi = true;
                    let pesoTotaleAssegnato = 0;
                    let lottiData = [];
@@ -1218,6 +1239,9 @@
                        }
                        lineaTrasformazione = altraLinea;
                    }
+                   
+                   // Ottieni il serbatoio di destinazione per lotti
+                   serbatoioDestinazione = $("#serbatoio-destinazione-lotti").val();
                    
                    // Valida ogni lotto
                    $(".lotto-item").each(function(index) {
@@ -1287,7 +1311,7 @@
                                    fineLavorazione: null,
                                    portata: 0,
                                    lineaTrasformazione: lineaTrasformazione,
-                                   serbatoioDestinazione: "",
+                                   serbatoioDestinazione: serbatoioDestinazione,
                                    isBio: isBio // Flag per BIO
                                };
                            } else {
@@ -1298,6 +1322,7 @@
                                silosData[silosId].tipologia = tipologia;
                                silosData[silosId].isBio = isBio;
                                silosData[silosId].lineaTrasformazione = lineaTrasformazione;
+                               silosData[silosId].serbatoioDestinazione = serbatoioDestinazione;
                            }
                            
                            // Aggiorna visualizzazione silos
@@ -1405,10 +1430,10 @@
                            <td>${data.tipologia}</td>
                            <td>${Math.round(data.quantita)} kg</td>
                            <td>${data.lineaTrasformazione || "-"}</td>
+                           <td>${data.serbatoioDestinazione || "-"}</td>
                            <td>${data.inizioLavorazione || "-"}</td>
                            <td>${data.fineLavorazione || "-"}</td>
                            <td>${data.portata > 0 ? Math.round(data.portata) + " kg/h" : "-"}</td>
-                           <td>${data.serbatoioDestinazione || '-'}<span class="watermark">Rileva il dato dal REP 2</span></td>
                            <td>
                                <button class="btn btn-sm btn-primary btn-process" data-silos="${silosId}">
                                    ${data.stato === "In attesa" ? "Avvia" : "Modifica"} Lavorazione
@@ -1456,9 +1481,6 @@
                    $("#flow-rate").val("");
                }
                
-               // Imposta il serbatoio di destinazione se esiste
-               $("#tank").val(data.serbatoioDestinazione || "");
-               
                // Mostra il modal
                new bootstrap.Modal(document.getElementById('silosModal')).show();
            }
@@ -1490,7 +1512,6 @@
                let endTime = $("#end-time").val();
                let quantity = parseFloat($("#quantity-processed").val());
                let flowRate = parseFloat($("#flow-rate").val());
-               let tank = $("#tank").val();
                
                if (!startTime || isNaN(quantity)) {
                    alert("Inserire almeno l'orario di inizio e la quantità");
@@ -1503,7 +1524,6 @@
                silosData[silosId].quantita = quantity;
                silosData[silosId].portata = flowRate || 0;
                silosData[silosId].stato = endTime ? "Completato" : "In lavorazione";
-               silosData[silosId].serbatoioDestinazione = tank;
                
                // Aggiorna visualizzazione
                updateSilosVisual(silosId);
@@ -1545,7 +1565,7 @@
            function updateReportData() {
                // Calcoli statistiche
                let totalStock = 0;
-               let processed = 0; // Frutta già lavorata (con fine lavorazione)
+               let processed = 0; // Frutta lavorata (completata)
                let waiting = 0;
                let occupiedSilos = 0;
                let supplierData = {};
@@ -1556,8 +1576,7 @@
                    totalStock += data.quantita;
                    occupiedSilos++;
                    
-                   if (data.fineLavorazione) {
-                       // Se ha una fine lavorazione, è stata completata
+                   if (data.stato === "Completato") {
                        processed += data.quantita;
                    } else if (data.stato === "In attesa") {
                        waiting += data.quantita;
@@ -1579,7 +1598,7 @@
                // Aggiornamento valori
                $("#total-stock").text(Math.round(totalStock) + " kg");
                $("#occupied-silos").text(occupiedSilos + "/21");
-               $("#processed").text(Math.round(processed) + " kg"); // Modificato: ora mostra la frutta lavorata
+               $("#processed").text(Math.round(processed) + " kg"); // Aggiornato da "In lavorazione" a "Lavorata"
                $("#waiting").text(Math.round(waiting) + " kg");
                
                // Aggiornamento tabelle
@@ -1662,7 +1681,7 @@
                    fineLavorazione: null,
                    portata: 2125,
                    lineaTrasformazione: "BOE/1100",
-                   serbatoioDestinazione: "",
+                   serbatoioDestinazione: "SRB-01",
                    isBio: false
                };
                
@@ -1678,7 +1697,7 @@
                    fineLavorazione: null,
                    portata: 0,
                    lineaTrasformazione: "BOE/1100",
-                   serbatoioDestinazione: "",
+                   serbatoioDestinazione: "SRB-02",
                    isBio: true
                };
                
@@ -1695,7 +1714,7 @@
                    fineLavorazione: null,
                    portata: 0,
                    lineaTrasformazione: "B/SF",
-                   serbatoioDestinazione: "",
+                   serbatoioDestinazione: "SRB-03",
                    isBio: true
                };
                
@@ -1712,7 +1731,7 @@
                    fineLavorazione: "2025-05-14T18:30",
                    portata: 1733,
                    lineaTrasformazione: "GOE INT/400",
-                   serbatoioDestinazione: "S12",
+                   serbatoioDestinazione: "SRB-04",
                    isBio: false
                };
                
