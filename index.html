@@ -26,7 +26,8 @@
         .dashboard-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: a
+            20px;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -201,6 +202,8 @@
                                     <option value="Verdello">Verdello</option>
                                     <option value="Bianchetto">Bianchetto</option>
                                     <option value="Sanguinello">Sanguinello</option>
+                                    <option value="Femminello Bianchetto">Femminello Bianchetto</option>
+                                    <option value="Interdonato">Interdonato</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -373,9 +376,135 @@
                     </div>
                     
                     <!-- Sezione per scarico a lotti -->
-                    <div class="form-section" id="scarico-lotti" style="display: none;">
+                    <div class="form-section" id="scarico-lotti">
                         <h5>Scarico a Lotti</h5>
                         <p>Inserisci i dettagli dei lotti da scaricare in diverse linee e silos</p>
+                        
+                        <!-- Manteniamo visibile la grafica dei silos anche in modalità lotti -->
+                        <div class="row g-3 mb-3">
+                            <div class="col-12">
+                                <h6>Linea A</h6>
+                                <div class="silos-grid" id="lineaA-lotti">
+                                    <div class="silos" data-silos="A1">
+                                        <div class="silos-label">A1</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="A2">
+                                        <div class="silos-label">A2</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="A3">
+                                        <div class="silos-label">A3</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="A4">
+                                        <div class="silos-label">A4</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="A5">
+                                        <div class="silos-label">A5</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="A6">
+                                        <div class="silos-label">A6</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="A7">
+                                        <div class="silos-label">A7</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <h6>Linea B</h6>
+                                <div class="silos-grid" id="lineaB-lotti">
+                                    <div class="silos" data-silos="B1">
+                                        <div class="silos-label">B1</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="B2">
+                                        <div class="silos-label">B2</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="B3">
+                                        <div class="silos-label">B3</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="B4">
+                                        <div class="silos-label">B4</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="B5">
+                                        <div class="silos-label">B5</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="B6">
+                                        <div class="silos-label">B6</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="B7">
+                                        <div class="silos-label">B7</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <h6>Linea C</h6>
+                                <div class="silos-grid" id="lineaC-lotti">
+                                    <div class="silos" data-silos="C1">
+                                        <div class="silos-label">C1</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="C2">
+                                        <div class="silos-label">C2</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="C3">
+                                        <div class="silos-label">C3</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="C4">
+                                        <div class="silos-label">C4</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="C5">
+                                        <div class="silos-label">C5</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="C6">
+                                        <div class="silos-label">C6</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                    <div class="silos" data-silos="C7">
+                                        <div class="silos-label">C7</div>
+                                        <div class="silos-content"></div>
+                                        <span class="silos-capacity">0/7000 kg</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                         <div id="lotti-container">
                             <div class="lotto-item mb-4 p-3 border rounded">
@@ -692,6 +821,8 @@
                     varietaSelect.append('<option value="Bianchetto">Bianchetto</option>');
                 } else if (tipoAgrume === "Limoni") {
                     varietaSelect.append('<option value="Verdello">Verdello</option>');
+                    varietaSelect.append('<option value="Femminello Bianchetto">Femminello Bianchetto</option>');
+                    varietaSelect.append('<option value="Interdonato">Interdonato</option>');
                 } else if (tipoAgrume === "Mandarini") {
                     varietaSelect.append('<option value="Ciaculli">Ciaculli</option>');
                 } else {
@@ -702,6 +833,8 @@
                     varietaSelect.append('<option value="Verdello">Verdello</option>');
                     varietaSelect.append('<option value="Bianchetto">Bianchetto</option>');
                     varietaSelect.append('<option value="Sanguinello">Sanguinello</option>');
+                    varietaSelect.append('<option value="Femminello Bianchetto">Femminello Bianchetto</option>');
+                    varietaSelect.append('<option value="Interdonato">Interdonato</option>');
                 }
             });
             
@@ -875,7 +1008,41 @@
                 }
             }
             
-            // CORREZIONE: Registrazione carico
+            // NUOVA LOGICA: Ripartizione del carico nei silos a pieno carico
+            function distribuireCarico(silosArray, pesoTotale) {
+                let pesoRimanente = pesoTotale;
+                let distribuzionePerSilos = {};
+                
+                // Riempire ogni silos fino alla capacità massima
+                for (let i = 0; i < silosArray.length; i++) {
+                    let silosId = silosArray[i];
+                    
+                    // Calcola il peso attuale nel silos
+                    let pesoAttuale = 0;
+                    if (silosData[silosId]) {
+                        pesoAttuale = silosData[silosId].quantita;
+                    }
+                    
+                    // Calcola quanto spazio rimane nel silos
+                    let spazioRimanente = 7000 - pesoAttuale;
+                    
+                    // Quanto peso possiamo aggiungere a questo silos
+                    let pesoAggiunto = Math.min(spazioRimanente, pesoRimanente);
+                    
+                    // Aggiorna la distribuzione e il peso rimanente
+                    distribuzionePerSilos[silosId] = pesoAggiunto;
+                    pesoRimanente -= pesoAggiunto;
+                    
+                    // Se non c'è più peso da distribuire, esci dal ciclo
+                    if (pesoRimanente <= 0) {
+                        break;
+                    }
+                }
+                
+                return distribuzionePerSilos;
+            }
+            
+            // CORREZIONE: Registrazione carico con nuova logica di distribuzione
             $("#btn-registra").click(function() {
                 // Validazione base
                 let fornitore = $("#fornitore").val();
@@ -925,38 +1092,37 @@
                         return;
                     }
                     
-                    // Validazione capacità silos
-                    let pesoPerSilos = pesoNetto / silosArray.length;
-                    let silosValidati = true;
+                    // NUOVA LOGICA: Distribuzione del carico
+                    let distribuzioneCarico = distribuireCarico(silosArray, pesoNetto);
                     
-                    silosArray.forEach(silosId => {
-                        let currentCapacity = 0;
-                        
-                        if (silosData[silosId]) {
-                            currentCapacity = silosData[silosId].quantita;
+                    // Verifica se abbiamo abbastanza silos per tutto il carico
+                    let totalePesoDistribuito = 0;
+                    for (let silosId in distribuzioneCarico) {
+                        totalePesoDistribuito += distribuzioneCarico[silosId];
+                    }
+                    
+                    if (totalePesoDistribuito < pesoNetto) {
+                        if (!confirm(`Attenzione: la capacità dei silos selezionati non è sufficiente per tutto il carico (${Math.round(totalePesoDistribuito)}/${Math.round(pesoNetto)} kg). Selezionare più silos o ridurre il carico. Continuare comunque?`)) {
+                            return;
                         }
+                    }
+                    
+                    // Assegnazione peso ai silos
+                    for (let silosId in distribuzioneCarico) {
+                        let pesoAssegnato = distribuzioneCarico[silosId];
                         
-                        // Verifica se supera la capacità massima
-                        if (currentCapacity + pesoPerSilos > 7000) {
-                            alert(`Il silos ${silosId} supererebbe la capacità massima di 7000 kg. Selezionare più silos o ridurre il carico.`);
-                            silosValidati = false;
-                            return false; // break del forEach
-                        }
-                    });
-                    
-                    if (!silosValidati) return;
-                    
-                    // Distribuzione peso nei silos selezionati
-                    silosArray.forEach(silos => {
+                        // Se il peso è 0, salta questo silos
+                        if (pesoAssegnato <= 0) continue;
+                        
                         // Se il silos non esiste già nei dati, lo creiamo
-                        if (!silosData[silos]) {
-                            silosData[silos] = {
+                        if (!silosData[silosId]) {
+                            silosData[silosId] = {
                                 fornitore: fornitore,
                                 tipologia: tipologia,
                                 targa: targa,
                                 tipoAgrume: tipoAgrume,
                                 varieta: varieta,
-                                quantita: pesoPerSilos,
+                                quantita: pesoAssegnato,
                                 stato: "In attesa",
                                 inizioLavorazione: null,
                                 fineLavorazione: null,
@@ -965,15 +1131,15 @@
                             };
                         } else {
                             // Aggiorniamo i dati esistenti (aggiungiamo peso)
-                            silosData[silos].quantita += pesoPerSilos;
-                            silosData[silos].fornitore = fornitore;
-                            silosData[silos].targa = targa;
-                            silosData[silos].lineaTrasformazione = lineaTrasformazione;
+                            silosData[silosId].quantita += pesoAssegnato;
+                            silosData[silosId].fornitore = fornitore;
+                            silosData[silosId].targa = targa;
+                            silosData[silosId].lineaTrasformazione = lineaTrasformazione;
                         }
                         
                         // Aggiorna visualizzazione silos
-                        updateSilosVisual(silos);
-                    });
+                        updateSilosVisual(silosId);
+                    }
                     
                     alert("Carico registrato con successo!");
                     
@@ -1022,7 +1188,7 @@
                         }
                         
                         if (!silosLotto) {
-                            alert(`Selezionare almeno un silos per il Lotto ${index + 1}`);
+                           alert(`Selezionare almeno un silos per il Lotto ${index + 1}`);
                             lottiValidi = false;
                             return false; // break
                         }
@@ -1045,34 +1211,18 @@
                         }
                     }
                     
-                    // Verifica capacità silos per ogni lotto
-                    let tuttiSilosValidati = true;
-                    
+                    // Registrazione dei lotti con nuova logica di distribuzione
                     lottiData.forEach((lotto, index) => {
-                        let pesoPerSilos = lotto.peso / lotto.silosArray.length;
+                        // Usa la nuova logica di distribuzione
+                        let distribuzioneCarico = distribuireCarico(lotto.silosArray, lotto.peso);
                         
-                        lotto.silosArray.forEach(silosId => {
-                            let currentCapacity = 0;
+                        // Assegnazione peso ai silos
+                        for (let silosId in distribuzioneCarico) {
+                            let pesoAssegnato = distribuzioneCarico[silosId];
                             
-                            if (silosData[silosId]) {
-                                currentCapacity = silosData[silosId].quantita;
-                            }
+                            // Se il peso è 0, salta questo silos
+                            if (pesoAssegnato <= 0) continue;
                             
-                            // Verifica se supera la capacità massima
-                            if (currentCapacity + pesoPerSilos > 7000) {
-                                alert(`Nel Lotto ${index + 1}, il silos ${silosId} supererebbe la capacità massima di 7000 kg.`);
-                                tuttiSilosValidati = false;
-                            }
-                        });
-                    });
-                    
-                    if (!tuttiSilosValidati) return;
-                    
-                    // Registrazione dei lotti
-                    lottiData.forEach((lotto, index) => {
-                        let pesoPerSilos = lotto.peso / lotto.silosArray.length;
-                        
-                        lotto.silosArray.forEach(silosId => {
                             // Se il silos non esiste già nei dati, lo creiamo
                             if (!silosData[silosId]) {
                                 silosData[silosId] = {
@@ -1081,7 +1231,7 @@
                                     targa: targa,
                                     tipoAgrume: tipoAgrume,
                                     varieta: varieta,
-                                    quantita: pesoPerSilos,
+                                    quantita: pesoAssegnato,
                                     stato: "In attesa",
                                     inizioLavorazione: null,
                                     fineLavorazione: null,
@@ -1090,7 +1240,7 @@
                                 };
                             } else {
                                 // Aggiorniamo i dati esistenti (aggiungiamo peso)
-                                silosData[silosId].quantita += pesoPerSilos;
+                                silosData[silosId].quantita += pesoAssegnato;
                                 silosData[silosId].fornitore = fornitore;
                                 silosData[silosId].targa = targa;
                                 silosData[silosId].lineaTrasformazione = lineaTrasformazione;
@@ -1098,7 +1248,7 @@
                             
                             // Aggiorna visualizzazione silos
                             updateSilosVisual(silosId);
-                        });
+                        }
                     });
                     
                     alert("Carico a lotti registrato con successo!");
@@ -1302,6 +1452,8 @@
                 $("#silos-selezionati").val("");
                 $("#altra-linea-container").hide();
                 $("#altra-linea-container-lotti").hide();
+                $("#scarico-completo").show();
+                $("#scarico-lotti").hide();
             }
             
             // Aggiornamento dati report
@@ -1511,23 +1663,17 @@
                     return;
                 }
                 
-                let pesoPerSilos = pesoNetto / silosArray.length;
-                let avviso = "";
+                // Utilizziamo la nuova logica di distribuzione per validare
+                let distribuzioneCarico = distribuireCarico(silosArray, pesoNetto);
                 
-                silosArray.forEach(silosId => {
-                    let currentCapacity = 0;
-                    
-                    if (silosData[silosId]) {
-                        currentCapacity = silosData[silosId].quantita;
-                    }
-                    
-                    if (currentCapacity + pesoPerSilos > 7000) {
-                        avviso += `Il silos ${silosId} supererebbe la capacità massima (${Math.round(currentCapacity + pesoPerSilos)}/7000 kg).\n`;
-                    }
-                });
+                // Verifica se abbiamo abbastanza silos per tutto il carico
+                let totalePesoDistribuito = 0;
+                for (let silosId in distribuzioneCarico) {
+                    totalePesoDistribuito += distribuzioneCarico[silosId];
+                }
                 
-                if (avviso) {
-                    alert("Attenzione:\n" + avviso + "Selezionare più silos o ridurre il carico.");
+                if (totalePesoDistribuito < pesoNetto) {
+                    alert(`Attenzione: la capacità dei silos selezionati non è sufficiente per tutto il carico (${Math.round(totalePesoDistribuito)}/${Math.round(pesoNetto)} kg). Selezionare più silos o ridurre il carico.`);
                 }
             }
             
