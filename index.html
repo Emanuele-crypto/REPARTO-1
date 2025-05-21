@@ -135,6 +135,21 @@
         #report h4.mb-3 {
             margin-bottom: 1rem !important;
         }
+        /* Stile per il numero di lotto */
+        .lotto-number {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: #17a2b8;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -232,7 +247,7 @@
                                 </select>
                             </div>
                             
-                            <!-- SPOSTATO QUI: Linee di Trasformazione -->
+                            <!-- Linee di Trasformazione -->
                             <div class="col-md-6">
                                 <label for="linea-trasformazione" class="form-label">Linea di Trasformazione</label>
                                 <select class="form-select" id="linea-trasformazione" required>
@@ -250,22 +265,6 @@
                             <div class="col-md-6" id="altra-linea-container" style="display: none;">
                                 <label for="altra-linea" class="form-label">Specifica altra linea</label>
                                 <input type="text" class="form-control" id="altra-linea" placeholder="Specifica il nome della linea">
-                            </div>
-                            
-                            <!-- Nuovo campo per il serbatoio di destinazione -->
-                            <div class="col-md-6">
-                                <label for="serbatoio-destinazione" class="form-label">Serbatoio di Destinazione</label>
-                                <select class="form-select" id="serbatoio-destinazione">
-                                    <option value="">Seleziona serbatoio</option>
-                                    <option value="SRB-01">SRB-01</option>
-                                    <option value="SRB-02">SRB-02</option>
-                                    <option value="SRB-03">SRB-03</option>
-                                    <option value="SRB-04">SRB-04</option>
-                                    <option value="SRB-05">SRB-05</option>
-                                    <option value="SRB-06">SRB-06</option>
-                                    <option value="SRB-07">SRB-07</option>
-                                    <option value="SRB-08">SRB-08</option>
-                                </select>
                             </div>
                         </div>
                     </div>
@@ -560,11 +559,11 @@
                                         <div class="lotto-silos-container" style="display: none;">
                                             <div class="btn-group" role="group">
                                                 <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="1">1</button>
-                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="2">2
-                                                    <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="2">2</button>
+                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="2">2</button>
                                                 <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="3">3</button>
                                                 <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="4">4</button>
-                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="5">5</button>
+                                                <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="5">5</button
+<button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="5">5</button>
                                                 <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="6">6</button>
                                                 <button type="button" class="btn btn-outline-secondary lotto-silos" data-silos="7">7</button>
                                             </div>
@@ -620,22 +619,6 @@
                                 <label for="altra-linea-lotti" class="form-label">Specifica altra linea</label>
                                 <input type="text" class="form-control" id="altra-linea-lotti" placeholder="Specifica il nome della linea">
                             </div>
-                            
-                            <!-- Serbatoio di destinazione per lotti -->
-                            <div class="col-md-6 mt-3">
-                                <label for="serbatoio-destinazione-lotti" class="form-label">Serbatoio di Destinazione</label>
-                                <select class="form-select" id="serbatoio-destinazione-lotti">
-                                    <option value="">Seleziona serbatoio</option>
-                                    <option value="SRB-01">SRB-01</option>
-                                    <option value="SRB-02">SRB-02</option>
-                                    <option value="SRB-03">SRB-03</option>
-                                    <option value="SRB-04">SRB-04</option>
-                                    <option value="SRB-05">SRB-05</option>
-                                    <option value="SRB-06">SRB-06</option>
-                                    <option value="SRB-07">SRB-07</option>
-                                    <option value="SRB-08">SRB-08</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
 
@@ -658,6 +641,7 @@
                             <tr>
                                 <th>Silos</th>
                                 <th>Stato</th>
+                                <th>N. Lotto</th>
                                 <th>Fornitore</th>
                                 <th>Tipo Agrume</th>
                                 <th>Varietà</th>
@@ -824,6 +808,7 @@
     <script>
         // Dati di esempio per la simulazione
         let silosData = {};
+        let lottoCounter = 1; // Contatore progressivo per i numeri di lotto
         
         $(document).ready(function() {
             // Gestione selezione silos con delegazione eventi
@@ -1106,7 +1091,6 @@
                 let tipoAgrume = $("#tipo-agrume").val();
                 let varieta = $("#varieta").val();
                 let modoScarico = $("#modo-scarico").val();
-                let serbatoioDestinazione = "";
                 
                 if (!fornitore || !tipologia || !targa || isNaN(pesoLordo) || isNaN(pesoNetto) || !tipoAgrume) {
                     alert("Compilare tutti i campi obbligatori");
@@ -1115,6 +1099,9 @@
                 
                 // Flag per verificare se la tipologia è BIO
                 let isBio = isBioTipologia(tipologia);
+                
+                // Crea un numero di lotto per questo carico
+                let currentLottoNumber = lottoCounter++;
                 
                 // Gestione scarico completo vs. scarico a lotti
                 if (modoScarico === "singolo") {
@@ -1141,9 +1128,6 @@
                         }
                         lineaTrasformazione = altraLinea;
                     }
-                    
-                    // Ottieni il serbatoio di destinazione
-                    serbatoioDestinazione = $("#serbatoio-destinazione").val();
                     
                     // Ottieni i silos selezionati
                     let silosArray = silosSelezionati.split(", ");
@@ -1172,7 +1156,6 @@
                         let pesoAssegnato = distribuzioneCarico[silosId];
                         
                         // Se il peso è 0, salta questo silos
-                        // Se il peso è 0, salta questo silos
                         if (pesoAssegnato <= 0) continue;
                         
                         // Se il silos non esiste già nei dati, lo creiamo
@@ -1189,8 +1172,9 @@
                                 fineLavorazione: null,
                                 portata: 0,
                                 lineaTrasformazione: lineaTrasformazione,
-                                serbatoioDestinazione: serbatoioDestinazione,
-                                isBio: isBio // Flag per BIO
+                                serbatoioDestinazione: "SRB-" + (Math.floor(Math.random() * 8) + 1).toString().padStart(2, '0'), // Serbatoio casuale solo per visualizzazione
+                                isBio: isBio, // Flag per BIO
+                                numeroLotto: currentLottoNumber // Aggiunto numero di lotto
                             };
                         } else {
                             // Aggiorniamo i dati esistenti (aggiungiamo peso)
@@ -1200,14 +1184,15 @@
                             silosData[silosId].tipologia = tipologia;
                             silosData[silosId].isBio = isBio;
                             silosData[silosId].lineaTrasformazione = lineaTrasformazione;
-                            silosData[silosId].serbatoioDestinazione = serbatoioDestinazione;
+                            // Manteniamo il serbatoio originale se già assegnato
+                            silosData[silosId].numeroLotto = currentLottoNumber; // Aggiornamento numero di lotto
                         }
                         
                         // Aggiorna visualizzazione silos
                         updateSilosVisual(silosId);
                     }
                     
-                    alert("Carico registrato con successo!");
+                    alert("Carico registrato con successo! Numero Lotto: " + currentLottoNumber);
                     
                     // Rimuovi selezione dai silos dopo il salvataggio
                     $(".silos").removeClass("selected");
@@ -1234,9 +1219,6 @@
                         }
                         lineaTrasformazione = altraLinea;
                     }
-                    
-                    // Ottieni il serbatoio di destinazione per lotti
-                    serbatoioDestinazione = $("#serbatoio-destinazione-lotti").val();
                     
                     // Valida ogni lotto
                     $(".lotto-item").each(function(index) {
@@ -1306,8 +1288,9 @@
                                     fineLavorazione: null,
                                     portata: 0,
                                     lineaTrasformazione: lineaTrasformazione,
-                                    serbatoioDestinazione: serbatoioDestinazione,
-                                    isBio: isBio // Flag per BIO
+                                    serbatoioDestinazione: "SRB-" + (Math.floor(Math.random() * 8) + 1).toString().padStart(2, '0'), // Serbatoio casuale solo per visualizzazione
+                                    isBio: isBio, // Flag per BIO
+                                    numeroLotto: currentLottoNumber // Aggiunto numero di lotto
                                 };
                             } else {
                                 // Aggiorniamo i dati esistenti (aggiungiamo peso)
@@ -1317,7 +1300,8 @@
                                 silosData[silosId].tipologia = tipologia;
                                 silosData[silosId].isBio = isBio;
                                 silosData[silosId].lineaTrasformazione = lineaTrasformazione;
-                                silosData[silosId].serbatoioDestinazione = serbatoioDestinazione;
+                                // Manteniamo il serbatoio originale se già assegnato
+                                silosData[silosId].numeroLotto = currentLottoNumber; // Aggiornamento numero di lotto
                             }
                             
                             // Aggiorna visualizzazione silos
@@ -1325,7 +1309,7 @@
                         }
                     });
                     
-                    alert("Carico a lotti registrato con successo!");
+                    alert("Carico a lotti registrato con successo! Numero Lotto: " + currentLottoNumber);
                 }
                 
                 // Aggiorna tabella stato silos e report
@@ -1401,6 +1385,13 @@
                     } else {
                         silosElement.find(".silos-badge").text(data.stato === "In attesa" ? "A" : "L");
                     }
+                    
+                    // Aggiungi badge per numero lotto se non esiste già
+                    if (silosElement.find(".lotto-number").length === 0) {
+                        silosElement.append(`<span class="lotto-number">${data.numeroLotto}</span>`);
+                    } else {
+                        silosElement.find(".lotto-number").text(data.numeroLotto);
+                    }
                 });
             }
             
@@ -1419,6 +1410,7 @@
                         <tr class="${bioClass}">
                             <td>${silosId}</td>
                             <td>${data.stato}</td>
+                            <td>${data.numeroLotto}</td>
                             <td>${data.fornitore}</td>
                             <td>${data.tipoAgrume}</td>
                             <td>${data.varieta || "-"}</td>
@@ -1451,7 +1443,7 @@
                 let data = silosData[silosId];
                 
                 $("#silos-id").val(silosId);
-                $("#silos-info").val(`${silosId} - ${data.tipoAgrume} (${Math.round(data.quantita)} kg)`);
+                $("#silos-info").val(`${silosId} - ${data.tipoAgrume} (${Math.round(data.quantita)} kg) - Lotto #${data.numeroLotto}`);
                 
                 if (data.inizioLavorazione) {
                     $("#start-time").val(data.inizioLavorazione);
@@ -1539,12 +1531,16 @@
                     // Svuota tutti i dati dei silos
                     silosData = {};
                     
+                    // Reset contatore lotti
+                    lottoCounter = 1;
+                    
                     // Aggiorna visualizzazione silos
                     $(".silos").each(function() {
                         $(this).removeClass("empty partial full bio selected");
                         $(this).addClass("empty");
                         $(this).find(".silos-content").empty();
                         $(this).find(".silos-badge").remove();
+                        $(this).find(".lotto-number").remove();
                         $(this).find(".silos-capacity").text("0/7000 kg");
                     });
                     
@@ -1677,7 +1673,8 @@
                     portata: 2125,
                     lineaTrasformazione: "BOE/1100",
                     serbatoioDestinazione: "SRB-01",
-                    isBio: false
+                    isBio: false,
+                    numeroLotto: 1 // Primo lotto di esempio
                 };
                 
                 silosData["A2"] = {
@@ -1693,7 +1690,8 @@
                     portata: 0,
                     lineaTrasformazione: "BOE/1100",
                     serbatoioDestinazione: "SRB-02",
-                    isBio: true
+                    isBio: true,
+                    numeroLotto: 2 // Secondo lotto di esempio
                 };
                 
                 // Simulazione carico 2
@@ -1710,7 +1708,8 @@
                     portata: 0,
                     lineaTrasformazione: "B/SF",
                     serbatoioDestinazione: "SRB-03",
-                    isBio: true
+                    isBio: true,
+                    numeroLotto: 3 // Terzo lotto di esempio
                 };
                 
                 // Simulazione carico 3
@@ -1727,13 +1726,17 @@
                     portata: 1733,
                     lineaTrasformazione: "GOE INT/400",
                     serbatoioDestinazione: "SRB-04",
-                    isBio: false
+                    isBio: false,
+                    numeroLotto: 4 // Quarto lotto di esempio
                 };
                 
                 // Aggiorna visualizzazione
                 for (let silosId in silosData) {
                     updateSilosVisual(silosId);
                 }
+                
+                // Imposta il contatore per il prossimo lotto (dopo quelli di esempio)
+                lottoCounter = 5;
                 
                 updateSilosTable();
                 updateReportData();
@@ -1790,4 +1793,4 @@
         });
     </script>
 </body>
-</html>                            
+</html>
